@@ -1,18 +1,22 @@
-﻿using Domain.Entities;
+﻿using Core.Entities;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Persistence.EntityConfigurations;
 
 namespace Persistence.Contexts
 {
     public class HospitalAppointDbContext : DbContext
     {
+        private readonly IConfiguration _configuration;
+
+        public HospitalAppointDbContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public DbSet<User> Users { get; set; }
-        public DbSet<Admin> Admins { get; set; }
-        public DbSet<AdminAction> AdminActions { get; set; }
+        public DbSet<BaseUser> BaseUsers { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<DoctorAvailability> DoctorAvailabilities { get; set; }
@@ -20,15 +24,19 @@ namespace Persistence.Contexts
         public DbSet<PatientReport> PatientReports { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<SupportRequest> SupportRequests { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<SystemStat> SystemStats { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost,1433;Database=HospitalAppointmentSystem;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True");
-            base.OnConfiguring(optionsBuilder);
+            if (!optionsBuilder.IsConfigured)
+            {
+                var connectionString = _configuration.GetConnectionString("Hospital-AppointConnectionString");
+                optionsBuilder.UseSqlServer(connectionString);
+            }
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Remove cascade delete convention for one-to-many relationships
@@ -37,11 +45,11 @@ namespace Persistence.Contexts
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-            // Configure table names for each entity in the database
-            modelBuilder.Entity<User>().ToTable("Users");
-            modelBuilder.Entity<Doctor>().ToTable("Doctors");
-            modelBuilder.Entity<Patient>().ToTable("Patients");
-            modelBuilder.Entity<Admin>().ToTable("Admins");
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
+            modelBuilder.ApplyConfiguration(new DoctorConfiguration());
+            modelBuilder.ApplyConfiguration(new OperationClaimConfiguration());
+            modelBuilder.ApplyConfiguration(new UserOperationClaimConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

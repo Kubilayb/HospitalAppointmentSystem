@@ -2,11 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contexts;
 using Persistence.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Persistence
 {
@@ -16,8 +11,6 @@ namespace Persistence
         {
             services.AddDbContext<HospitalAppointDbContext>();
 
-            services.AddScoped<IAdminActionRepository, AdminActionRepository>();
-            services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<IDoctorAvailabilityRepository, DoctorAvailabilityRepository>();
@@ -26,8 +19,11 @@ namespace Persistence
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IPatientReportRepository, PatientReportRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
-            services.AddScoped<ISystemStatRepository, SystemStatRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
+            services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
+
+            services.AddScoped<ISupportRequestRepository, SupportRequestRepository>();
 
             return services;
         }

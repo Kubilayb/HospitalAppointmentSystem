@@ -1,43 +1,47 @@
-﻿using Application.Repositories;
+﻿using Application.Features.Departments.Constants;
+using Application.Repositories;
+using AutoMapper;
+using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Logging;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static Application.Features.Departments.Constants.DepartmentsOperationClaims;
 
 namespace Application.Features.Departments.Commands.Create
 {
-    public class CreateDepartmentCommand : IRequest<CreateDepartmentResponse>
-    {
-        public string DepartmentName { get; set; }
-        public string DepartmentDescription { get; set; }
+	public class CreateDepartmentCommand : IRequest<CreateDepartmentResponse>
+	{
+		public string Name { get; set; }
+		public string Description { get; set; }
 
-        public class CreateDepartmentCommandHandler : IRequestHandler<CreateDepartmentCommand, CreateDepartmentResponse>
-        {
-            private readonly IDepartmentRepository _departmentRepository;
+		public class CreateDepartmentCommandHandler : IRequestHandler<CreateDepartmentCommand, CreateDepartmentResponse>
+		{
+			private readonly IDepartmentRepository _departmentRepository;
+			private readonly IMapper _mapper;
 
-            public CreateDepartmentCommandHandler(IDepartmentRepository departmentRepository)
-            {
-                _departmentRepository = departmentRepository;
-            }
+			public CreateDepartmentCommandHandler(IDepartmentRepository departmentRepository, IMapper mapper)
+			{
+				_departmentRepository = departmentRepository;
+				_mapper = mapper;
+			}
 
-            public async Task<CreateDepartmentResponse> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
-            {
-                Department department = new()
-                {
-                    DepartmentName = request.DepartmentName,
-                    DepartmentDescription = request.DepartmentDescription,
-                };
-                await _departmentRepository.AddAsync(department);
-                return new CreateDepartmentResponse()
-                {
-                    DepartmentName = department.DepartmentName,
-                    DepartmentDescription = department.DepartmentDescription,
+			public async Task<CreateDepartmentResponse> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
+			{
+				Department? department = await _departmentRepository.GetAsync(i => i.Name == request.Name);
 
-                };
-            }
-        }
-    }
+				if (department is not null)
+				{
+					throw new BusinessException(DepartmentsMessages.DepartmentExists);
+				}
+				
+				department = _mapper.Map<Department>(request);
+				await _departmentRepository.AddAsync(department);
+
+				CreateDepartmentResponse response = _mapper.Map<CreateDepartmentResponse>(department);
+				return response;
+
+			}
+		}
+	}
 }

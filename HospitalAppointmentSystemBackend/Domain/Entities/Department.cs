@@ -1,16 +1,27 @@
 ﻿using Core.DataAccess;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Department : Entity
+    public class Department : Entity<int>
     {
-        public string DepartmentName { get; set; }
-        public string DepartmentDescription { get; set;}
-        public ICollection<Doctor> Doctors { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public virtual ICollection<Doctor> Doctors { get; set; }
+
+        public Department()
+        {
+        }
+
+        public Department(
+            int id,
+            string? name,
+            string? description
+        )
+            : this()
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+        }
     }
 }
