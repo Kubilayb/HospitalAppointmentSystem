@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.Repositories
 {
-    public interface IDoctorRepository : IAsyncRepository<Doctor>,IRepository<Doctor> 
+    public interface IDoctorRepository : IAsyncRepository<Doctor>, IRepository<Doctor>
     {
+        Task<Doctor> GetAsync(Func<Doctor, bool> predicate);
     }
 }

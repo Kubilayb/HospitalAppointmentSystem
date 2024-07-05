@@ -10,10 +10,8 @@ using System.Threading.Tasks;
 
 namespace Persistence.Repositories
 {
-    public class DoctorRepository : EfRepositoryBase<Doctor, HospitalAppointDbContext>, IDoctorRepository
+    public interface DoctorRepository : IAsyncRepository<Doctor>, IRepository<Doctor>
     {
-        public DoctorRepository(HospitalAppointDbContext context) : base(context)
-        {
-        }
+        
     }
 }
