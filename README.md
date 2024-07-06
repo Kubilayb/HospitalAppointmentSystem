@@ -6,11 +6,10 @@
 Projenin amacı, hastane personelinin ve hastaların randevu süreçlerini kolaylaştırmak ve daha iyi bir yönetim sistemi sunmaktır. Bu sistem, doktorlar, hastalar ve randevular gibi temel bileşenleri içerir. Kullanıcı dostu bir arayüz sunarak randevu alma, doktor bilgilerini görüntüleme ve hasta kayıtlarını yönetme gibi özellikler sağlar.
 
 Projeyi geliştirirken, Onion Architecture'ı kullanıldı. Bu mimari, katmanlar arası bağımlılıkları en aza indirerek kodun daha esnek ve sürdürülebilir olmasını sağlar. Proje dört ana katmandan oluşmaktadır:
-
-Core Katmanı: Temel iş kurallarını ve domain modellerini içerir.
-Application Katmanı: İş mantığını ve uygulama servislerini içerir.
-Infrastructure Katmanı: Veri erişim katmanıdır ve Entity Framework Core kullanılarak veritabanı işlemleri gerçekleştirilir.
-Presentation Katmanı: Kullanıcı arayüzünü ve API'leri içerir.
+<br>**Core Katmanı:** Temel iş kurallarını ve domain modellerini içerir. 
+<br>**Application Katmanı:** İş mantığını ve uygulama servislerini içerir.
+<br>**Infrastructure Katmanı:** Veri erişim katmanıdır ve Entity Framework Core kullanılarak veritabanı işlemleri gerçekleştirilir.
+<br>**Presentation Katmanı:** Kullanıcı arayüzünü ve API'leri içerir.<br>
 
 ### 🧰 Kullanılan Teknolojiler
 
