@@ -10,10 +10,10 @@ using static Application.Features.Notifications.Constants.NotificationsOperation
 
 namespace Application.Features.Notifications.Commands.SoftDelete
 {
-    public class SoftDeleteNotificationCommand : IRequest<SoftDeleteNotificationResponse>
+    public class SoftDeleteNotificationCommand : IRequest<SoftDeleteNotificationResponse>, ISecuredRequest, ILoggableRequest
     {
+        public string[] RequiredRoles => new[] { Admin, NotificationsOperationClaims.Delete };
         public int Id { get; set; }
-
 
         public class SoftDeleteNotificationCommandHandler : IRequestHandler<SoftDeleteNotificationCommand, SoftDeleteNotificationResponse>
         {
@@ -30,7 +30,7 @@ namespace Application.Features.Notifications.Commands.SoftDelete
             {
                 Notification? notification = await _notificationRepository.GetAsync(i => i.Id == request.Id);
 
-                if (notification == null)
+                if (notification == null || notification.IsDeleted == true)
                 {
                     throw new NotFoundException(NotificationsMessages.NotificationNotExists);
                 }

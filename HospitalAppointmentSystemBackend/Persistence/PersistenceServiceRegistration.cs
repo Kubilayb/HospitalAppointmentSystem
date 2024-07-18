@@ -14,7 +14,7 @@ namespace Persistence
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<IDoctorAvailabilityRepository, DoctorAvailabilityRepository>();
-           // services.AddScoped<IDoctorRepository, DoctorRepository>();   TODO: Bu kısım düzeltilecektir.
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IPatientReportRepository, PatientReportRepository>();
@@ -22,7 +22,6 @@ namespace Persistence
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
             services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
-
             services.AddScoped<ISupportRequestRepository, SupportRequestRepository>();
 
             return services;

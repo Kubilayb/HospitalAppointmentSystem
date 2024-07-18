@@ -1,15 +1,16 @@
 ﻿using Application.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Logging;
 using Domain.Entities;
 using Domain.Enums;
 using MediatR;
 
 namespace Application.Features.Notifications.Commands.Create
 {
-    public class CreateNotificationCommand : IRequest<CreateNotificationResponse>
+    public class CreateNotificationCommand : IRequest<CreateNotificationResponse>, ILoggableRequest
     {
-		public NotificationType Type { get; set; }
-		public string Title { get; set; }
+        public NotificationType NotificationType { get; set; }
+        public string Title { get; set; }
 		public string Message { get; set; }
 		public class CreateNotificationCommandHandler : IRequestHandler<CreateNotificationCommand, CreateNotificationResponse>
         {

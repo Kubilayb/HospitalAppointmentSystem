@@ -10,9 +10,10 @@ using static Application.Features.Departments.Constants.DepartmentsOperationClai
 
 namespace Application.Features.Departments.Commands.Create
 {
-	public class CreateDepartmentCommand : IRequest<CreateDepartmentResponse>
+	public class CreateDepartmentCommand : IRequest<CreateDepartmentResponse>, ISecuredRequest, ILoggableRequest
 	{
-		public string Name { get; set; }
+		public string[] RequiredRoles => [Admin, Write, Add];
+        public string Name { get; set; }
 		public string Description { get; set; }
 
 		public class CreateDepartmentCommandHandler : IRequestHandler<CreateDepartmentCommand, CreateDepartmentResponse>
@@ -28,19 +29,12 @@ namespace Application.Features.Departments.Commands.Create
 
 			public async Task<CreateDepartmentResponse> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
 			{
-				Department? department = await _departmentRepository.GetAsync(i => i.Name == request.Name);
+				Department department = _mapper.Map<Department>(request);
 
-				if (department is not null)
-				{
-					throw new BusinessException(DepartmentsMessages.DepartmentExists);
-				}
-				
-				department = _mapper.Map<Department>(request);
 				await _departmentRepository.AddAsync(department);
 
 				CreateDepartmentResponse response = _mapper.Map<CreateDepartmentResponse>(department);
 				return response;
-
 			}
 		}
 	}

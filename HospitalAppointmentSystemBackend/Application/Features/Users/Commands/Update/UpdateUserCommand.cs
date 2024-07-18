@@ -1,18 +1,22 @@
-﻿using Application.Repositories;
+﻿using Application.Features.Users.Constants;
+using Application.Repositories;
 using AutoMapper;
-using Core.Hashing;
+using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Logging;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 using Domain.Entities;
 using MediatR;
+using static Application.Features.Users.Constants.UsersOperationClaims;
 
 namespace Application.Features.Users.Commands.Update
 {
-    public class UpdateUserCommand : IRequest<UpdateUserResponse>
+    public class UpdateUserCommand : IRequest<UpdateUserResponse>, ISecuredRequest, ILoggableRequest
     {
+        public string[] RequiredRoles => new[] { Admin, UsersOperationClaims.Update };
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string Gender { get; set; }
         public DateTime BirthDate { get; set; }
         public string PhoneNumber { get; set; }
@@ -34,20 +38,19 @@ namespace Application.Features.Users.Commands.Update
             public async Task<UpdateUserResponse> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
                 User? user = await _userRepository.GetAsync(i => i.Id == request.Id);
-                
-                if (user is null)
+
+                if (user == null || user.IsDeleted == true)
                 {
-                    throw new ArgumentException("No such user found");
+                    throw new NotFoundException(UsersMessages.UserNotExists);
+                }
+
+                User? existingUser = await _userRepository.GetAsync(u => u.Email == request.Email);
+                if (existingUser != null)
+                {
+                    throw new BusinessException("The email address is already in use.");
                 }
 
                 _mapper.Map(request, user);
-
-                byte[] passwordHash, passwordSalt;
-
-                HashingHelper.CreatePasswordHash(request.Password, out passwordHash, out passwordSalt);
-
-                user.PasswordSalt = passwordSalt;
-                user.PasswordHash = passwordHash;
 
                 await _userRepository.UpdateAsync(user);
 

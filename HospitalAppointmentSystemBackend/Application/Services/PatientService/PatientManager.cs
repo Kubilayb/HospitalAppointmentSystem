@@ -11,7 +11,7 @@ namespace Application.Services.PatientService
 			_patientRepository = patientRepository;
 		}
 
-		public async Task<bool> PatientValidationById(int id)
+        public async Task<bool> PatientValidationById(int id)
 		{
 			Patient? patient = await _patientRepository.GetAsync(x => x.Id == id);
 			if (patient == null)
@@ -19,6 +19,15 @@ namespace Application.Services.PatientService
 				return false;
 			}
 			return true;
+		}
+
+        public async Task AddPatientAsync(Patient patient)
+        {
+            await _patientRepository.AddAsync(patient);
+        }
+		public async Task<User> GetUserAsync(int patientId)
+		{
+			return await _patientRepository.GetUserAsync(patientId);
 		}
 	}
 }

@@ -6,16 +6,20 @@ using Core.CrossCuttingConcerns.Exceptions.Types;
 using Domain.Entities;
 using Domain.Enums;
 using MediatR;
-
 using Application.Features.Patients.Constants;
 using Application.Features.DoctorAvailabilities.Constants;
 using Application.Features.Appointments.Constants;
+using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Logging;
+using static Application.Features.Appointments.Constants.AppointmentsOperationClaims;
+using Core.Mailing;
 
 namespace Application.Features.Appointments.Commands.Create
 {
-	public class CreateAppointmentCommand : IRequest<CreateAppointmentResponse>
-	{
-		public int PatientId { get; set; }
+	public class CreateAppointmentCommand : IRequest<CreateAppointmentResponse>, ISecuredRequest, ILoggableRequest
+    {
+        public string[] RequiredRoles => [Admin, Write, Add];
+        public int PatientId { get; set; }
 		public int DoctorAvailabilityId { get; set; }
 		public AppointmentStatus Status { get; set; }
 		public DateTime StartTime { get; set; }
@@ -27,13 +31,15 @@ namespace Application.Features.Appointments.Commands.Create
 			private readonly IMapper _mapper;
 			private readonly IPatientService _patientService;
 			private readonly IDoctorAvailabilityService _doctorAvailabilityService;
+			private readonly IMailService _mailService;
 
-			public CreateAppointmentCommandHandler(IAppointmentRepository appointmentRepository, IMapper mapper, IPatientService patientService, IDoctorAvailabilityService doctorAvailabilityService)
+			public CreateAppointmentCommandHandler(IAppointmentRepository appointmentRepository, IMapper mapper, IPatientService patientService, IDoctorAvailabilityService doctorAvailabilityService, IMailService mailService)
 			{
 				_appointmentRepository = appointmentRepository;
 				_mapper = mapper;
 				_patientService = patientService;
 				_doctorAvailabilityService = doctorAvailabilityService;
+				_mailService = mailService;
 			}
 
 			public async Task<CreateAppointmentResponse> Handle(CreateAppointmentCommand request, CancellationToken cancellationToken)
@@ -49,6 +55,10 @@ namespace Application.Features.Appointments.Commands.Create
 				else if (isPatientExist && isDoctorAvailabilityExist && appointment.StartTime == request.StartTime)
 				{
 					await _appointmentRepository.AddAsync(appointment);
+
+					User user = await _patientService.GetUserAsync(request.PatientId);
+					await _mailService.BookedAppointmentMailAsync(user.Email, appointment.StartTime, user.FirstName, user.LastName);
+
 					CreateAppointmentResponse response = _mapper.Map<CreateAppointmentResponse>(appointment);
 					return response;
 				}

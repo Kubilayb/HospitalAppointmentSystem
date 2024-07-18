@@ -1,6 +1,5 @@
 ﻿using Application.Repositories;
 using AutoMapper;
-using Core.Application.Pipelines.Authorization;
 using Core.Paging;
 using Core.Requests;
 using Core.Responses;
@@ -9,10 +8,9 @@ using MediatR;
 
 namespace Application.Features.Users.Queries.GetList
 {
-    public class GetListUserQuery : IRequest<GetListResponse<GetListUserResponse>>, ISecuredRequest
+    public class GetListUserQuery : IRequest<GetListResponse<GetListUserResponse>>
     {
         public PageRequest PageRequest { get; set; }
-        public string[] RequiredRoles => ["User.GetList"];
 
         public class GetListQueryHandler : IRequestHandler<GetListUserQuery, GetListResponse<GetListUserResponse>>
         {

@@ -6,14 +6,14 @@ using Core.Application.Pipelines.Logging;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Domain.Entities;
 using MediatR;
+using static Application.Features.Appointments.Constants.AppointmentsOperationClaims;
 
 namespace Application.Features.Appointments.Commands.SoftDelete
 {
-    public class SoftDeleteAppointmentCommand : IRequest<SoftDeleteAppointmentResponse>
+    public class SoftDeleteAppointmentCommand : IRequest<SoftDeleteAppointmentResponse>, ISecuredRequest, ILoggableRequest
     {
-
+        public string[] RequiredRoles => [Admin, AppointmentsOperationClaims.Delete];
         public int Id { get; set; }
-
 
         public class SoftDeleteAppointmentCommandHandler : IRequestHandler<SoftDeleteAppointmentCommand, SoftDeleteAppointmentResponse>
         {
@@ -30,7 +30,7 @@ namespace Application.Features.Appointments.Commands.SoftDelete
             {
                 Appointment? appointment = await _appointmentRepository.GetAsync(i => i.Id == request.Id);
 
-                if (appointment == null)
+                if (appointment == null || appointment.IsDeleted == true)
                 {
                     throw new NotFoundException(AppointmentsMessages.AppointmentNotExists);
                 }

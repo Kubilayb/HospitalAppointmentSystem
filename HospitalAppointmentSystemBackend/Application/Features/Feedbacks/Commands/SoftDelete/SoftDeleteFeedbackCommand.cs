@@ -10,10 +10,10 @@ using static Application.Features.Feedbacks.Constants.FeedbacksOperationClaims;
 
 namespace Application.Features.Feedbacks.Commands.SoftDelete
 {
-    public class SoftDeleteFeedbackCommand : IRequest<SoftDeleteFeedbackResponse>
+    public class SoftDeleteFeedbackCommand : IRequest<SoftDeleteFeedbackResponse>, ISecuredRequest, ILoggableRequest
     {
+        public string[] RequiredRoles => new[] { Admin, FeedbacksOperationClaims.Delete };
         public int Id { get; set; }
-
 
         public class SoftDeleteFeedbackCommandHandler : IRequestHandler<SoftDeleteFeedbackCommand, SoftDeleteFeedbackResponse>
         {
@@ -30,7 +30,7 @@ namespace Application.Features.Feedbacks.Commands.SoftDelete
             {
                 Feedback? feedback = await _feedbackRepository.GetAsync(i => i.Id == request.Id);
 
-                if (feedback == null)
+                if (feedback == null || feedback.IsDeleted == true)
                 {
                     throw new NotFoundException(FeedbacksMessages.FeedbackNotExists);
                 }

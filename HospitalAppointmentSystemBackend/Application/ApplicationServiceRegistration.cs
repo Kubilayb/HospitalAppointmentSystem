@@ -13,6 +13,10 @@ using Application.Services.PatientService;
 using Application.Services.UserService;
 using Application.Services.AppointmentService;
 using Application.Services.DoctorAvailabilityService;
+using Application.Services.UserOperationClaimService;
+using Application.Services.OperationClaimService;
+using Application.Features.Auth.Rules;
+using Application.Features.Users.Rules;
 
 
 namespace Application
@@ -29,7 +33,7 @@ namespace Application
                 config.AddOpenBehavior(typeof(LoggingBehavior<,>));
                 config.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
-            
+
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             services.AddSingleton<FileLogger>();
@@ -53,10 +57,15 @@ namespace Application
             services.AddScoped<IAuthService, AuthManager>();
             services.AddScoped<IPatientService, PatientManager>();
             services.AddScoped<IUserService, UserManager>();
-			services.AddScoped<IAppointmentService, AppointmentManager>();
-			services.AddScoped<IDoctorAvailabilityService, DoctorAvailabilityManager>();
+            services.AddScoped<IAppointmentService, AppointmentManager>();
+            services.AddScoped<IDoctorAvailabilityService, DoctorAvailabilityManager>();
+            services.AddScoped<IUserOperationClaimService, UserOperationClaimManager>();
+            services.AddScoped<IOperationClaimService, OperationClaimManager>();
 
-			return services;
+            services.AddScoped<AuthBusinessRules>();
+            services.AddScoped<UserBusinessRules>();
+
+            return services;
         }
     }
 }

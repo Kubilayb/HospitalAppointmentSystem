@@ -42,7 +42,7 @@ namespace Persistence.Contexts
             // Remove cascade delete convention for one-to-many relationships
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+                relationship.DeleteBehavior = DeleteBehavior.SetNull;
             }
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
@@ -50,6 +50,13 @@ namespace Persistence.Contexts
             modelBuilder.ApplyConfiguration(new DoctorConfiguration());
             modelBuilder.ApplyConfiguration(new OperationClaimConfiguration());
             modelBuilder.ApplyConfiguration(new UserOperationClaimConfiguration());
+            modelBuilder.ApplyConfiguration(new DoctorAvailabilityConfiguration());
+            modelBuilder.ApplyConfiguration(new PatientConfiguration());
+            modelBuilder.ApplyConfiguration(new AppointmentConfiguration());
+            modelBuilder.ApplyConfiguration(new PatientReportConfiguration());
+            modelBuilder.ApplyConfiguration(new FeedbackConfiguration());
+            modelBuilder.ApplyConfiguration(new SupportRequestConfiguration());
+            modelBuilder.ApplyConfiguration(new NotificationConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

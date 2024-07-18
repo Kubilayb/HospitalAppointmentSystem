@@ -1,16 +1,21 @@
-﻿using Application.Repositories;
+﻿using Application.Features.Appointments.Constants;
+using Application.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Logging;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 using Domain.Entities;
 using Domain.Enums;
 using MediatR;
+using static Application.Features.Appointments.Constants.AppointmentsOperationClaims;
 
 namespace Application.Features.Appointments.Commands.Update
 {
-    public class UpdateAppointmentCommand : IRequest<UpdateAppointmentResponse>
+    public class UpdateAppointmentCommand : IRequest<UpdateAppointmentResponse>, ISecuredRequest, ILoggableRequest
     {
-		public int PatientId { get; set; }
+        public string[] RequiredRoles => [Admin, AppointmentsOperationClaims.Update];
+        public int Id { get; set; }
+        public int PatientId { get; set; }
 		public int DoctorAvailabilityId { get; set; }
 		public AppointmentStatus Status { get; set; }
 		public DateTime StartTime { get; set; }
@@ -29,8 +34,15 @@ namespace Application.Features.Appointments.Commands.Update
 
             public async Task<UpdateAppointmentResponse> Handle(UpdateAppointmentCommand request, CancellationToken cancellationToken)
             {
-                Appointment appointment = _mapper.Map<Appointment>(request);
+                Appointment? appointment = await _appointmentRepository.GetAsync(i => i.Id == request.Id);
                 
+                if (appointment == null || appointment.IsDeleted == true) 
+                {
+                    throw new NotFoundException(AppointmentsMessages.AppointmentNotExists);
+                }
+
+                _mapper.Map(request, appointment);
+
                 await _appointmentRepository.UpdateAsync(appointment);
                 UpdateAppointmentResponse response = _mapper.Map<UpdateAppointmentResponse>(appointment);
                 return response;

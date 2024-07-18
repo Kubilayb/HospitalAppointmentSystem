@@ -67,6 +67,9 @@ namespace Persistence.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UserType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("BaseUsers");
@@ -110,7 +113,7 @@ namespace Persistence.Migrations
                             Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
-                            Name = "users.admin"
+                            Name = "admin"
                         },
                         new
                         {
@@ -149,13 +152,6 @@ namespace Persistence.Migrations
                         },
                         new
                         {
-                            Id = 7,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "doctors.admin"
-                        },
-                        new
-                        {
                             Id = 8,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
@@ -188,13 +184,6 @@ namespace Persistence.Migrations
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "doctors.delete"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "patients.admin"
                         },
                         new
                         {
@@ -233,13 +222,6 @@ namespace Persistence.Migrations
                         },
                         new
                         {
-                            Id = 19,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "doctorAvailabilities.admin"
-                        },
-                        new
-                        {
                             Id = 20,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
@@ -272,13 +254,6 @@ namespace Persistence.Migrations
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "doctorAvailabilities.delete"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "patientReports.admin"
                         },
                         new
                         {
@@ -317,13 +292,6 @@ namespace Persistence.Migrations
                         },
                         new
                         {
-                            Id = 31,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "appointments.admin"
-                        },
-                        new
-                        {
                             Id = 32,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
@@ -356,13 +324,6 @@ namespace Persistence.Migrations
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "appointments.delete"
-                        },
-                        new
-                        {
-                            Id = 37,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "departments.admin"
                         },
                         new
                         {
@@ -401,13 +362,6 @@ namespace Persistence.Migrations
                         },
                         new
                         {
-                            Id = 43,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "operationClaims.admin"
-                        },
-                        new
-                        {
                             Id = 44,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
@@ -440,13 +394,6 @@ namespace Persistence.Migrations
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "operationClaims.delete"
-                        },
-                        new
-                        {
-                            Id = 49,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "userOperationClaims.admin"
                         },
                         new
                         {
@@ -485,13 +432,6 @@ namespace Persistence.Migrations
                         },
                         new
                         {
-                            Id = 55,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "feedbacks.admin"
-                        },
-                        new
-                        {
                             Id = 56,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
@@ -527,13 +467,6 @@ namespace Persistence.Migrations
                         },
                         new
                         {
-                            Id = 61,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "notifications.admin"
-                        },
-                        new
-                        {
                             Id = 62,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
@@ -566,13 +499,6 @@ namespace Persistence.Migrations
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "notifications.delete"
-                        },
-                        new
-                        {
-                            Id = 67,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "supportRequests.admin"
                         },
                         new
                         {
@@ -619,7 +545,7 @@ namespace Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BaseUserId")
+                    b.Property<int?>("BaseUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -631,7 +557,7 @@ namespace Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("OperationClaimId")
+                    b.Property<int?>("OperationClaimId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -653,94 +579,6 @@ namespace Persistence.Migrations
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             OperationClaimId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BaseUserId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            OperationClaimId = 7
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BaseUserId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            OperationClaimId = 13
-                        },
-                        new
-                        {
-                            Id = 4,
-                            BaseUserId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            OperationClaimId = 19
-                        },
-                        new
-                        {
-                            Id = 5,
-                            BaseUserId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            OperationClaimId = 25
-                        },
-                        new
-                        {
-                            Id = 6,
-                            BaseUserId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            OperationClaimId = 31
-                        },
-                        new
-                        {
-                            Id = 7,
-                            BaseUserId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            OperationClaimId = 37
-                        },
-                        new
-                        {
-                            Id = 8,
-                            BaseUserId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            OperationClaimId = 43
-                        },
-                        new
-                        {
-                            Id = 9,
-                            BaseUserId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            OperationClaimId = 49
-                        },
-                        new
-                        {
-                            Id = 10,
-                            BaseUserId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            OperationClaimId = 55
-                        },
-                        new
-                        {
-                            Id = 11,
-                            BaseUserId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            OperationClaimId = 61
-                        },
-                        new
-                        {
-                            Id = 12,
-                            BaseUserId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            OperationClaimId = 67
                         },
                         new
                         {
@@ -887,6 +725,41 @@ namespace Persistence.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Appointments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorAvailabilityId = 1,
+                            EndTime = new DateTime(2024, 6, 30, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            PatientId = 1,
+                            StartTime = new DateTime(2024, 6, 30, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorAvailabilityId = 1,
+                            EndTime = new DateTime(2024, 6, 30, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            PatientId = 2,
+                            StartTime = new DateTime(2024, 6, 30, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorAvailabilityId = 4,
+                            EndTime = new DateTime(2024, 7, 4, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            PatientId = 2,
+                            StartTime = new DateTime(2024, 7, 4, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = 3
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Department", b =>
@@ -904,12 +777,14 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -985,7 +860,9 @@ namespace Persistence.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Doctors");
 
@@ -1059,6 +936,44 @@ namespace Persistence.Migrations
                     b.HasIndex("DoctorId");
 
                     b.ToTable("DoctorAvailabilities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1,
+                            EndTime = new DateTime(2024, 6, 30, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            StartTime = new DateTime(2024, 6, 30, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2,
+                            EndTime = new DateTime(2024, 6, 30, 15, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            StartTime = new DateTime(2024, 6, 30, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1,
+                            EndTime = new DateTime(2024, 7, 1, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            StartTime = new DateTime(2024, 7, 1, 10, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            EndTime = new DateTime(2024, 7, 4, 16, 45, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            StartTime = new DateTime(2024, 7, 4, 8, 30, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Feedback", b =>
@@ -1082,7 +997,7 @@ namespace Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("Rating")
+                    b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -1100,6 +1015,48 @@ namespace Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Feedbacks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Test",
+                            IsDeleted = false,
+                            Rating = 10,
+                            Title = "Test",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Test2",
+                            IsDeleted = false,
+                            Rating = 9,
+                            Title = "Test2",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Test3",
+                            IsDeleted = false,
+                            Rating = 7,
+                            Title = "Test3",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Test4",
+                            IsDeleted = false,
+                            Rating = 5,
+                            Title = "Test4",
+                            UserId = 3
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Notification", b =>
@@ -1123,6 +1080,9 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NotificationType")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("SentAt")
                         .HasColumnType("datetime2");
 
@@ -1130,15 +1090,24 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.ToTable("Notifications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Message = "Test",
+                            NotificationType = 1,
+                            SentAt = new DateTime(2024, 6, 30, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Test"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Patient", b =>
@@ -1152,7 +1121,7 @@ namespace Persistence.Migrations
                     b.Property<string>("Allergies")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("BloodType")
+                    b.Property<int?>("BloodType")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -1176,14 +1145,13 @@ namespace Persistence.Migrations
                     b.Property<string>("HealthHistory")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InsuranceType")
+                    b.Property<int?>("InsuranceType")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("SocialSecurityNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -1194,9 +1162,45 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Patients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Allergies = "Penicillin",
+                            BloodType = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CurrentMedications = "Lisinopril 10mg daily, Metformin 500mg twice daily",
+                            EmergencyContactName = "Lorem Ipsum",
+                            EmergencyContactPhoneNumber = "000000",
+                            EmergencyContactRelationship = "Father",
+                            HealthHistory = "John Doe, born on January 1, 1980, has a medical history that includes hypertension, Type 2 diabetes, and asthma. He takes 10mg of Lisinopril daily, 500mg of Metformin twice daily, and uses an Albuterol inhaler as needed. In the past, he underwent an appendectomy in 2010 and knee arthroscopy in 2015. He has an allergy to penicillin. His family history shows that his father has hypertension and his mother has Type 2 diabetes. John is a non-smoker and consumes alcohol occasionally.",
+                            InsuranceType = 1,
+                            IsDeleted = false,
+                            SocialSecurityNumber = "1554447878",
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Allergies = "None known",
+                            BloodType = 6,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CurrentMedications = "Levothyroxine 50mcg daily (for hypothyroidism), Sumatriptan (as needed for migraines)",
+                            EmergencyContactName = "Lorem Ipsum",
+                            EmergencyContactPhoneNumber = "000000",
+                            EmergencyContactRelationship = "Sister",
+                            HealthHistory = "Jane Smith, born on February 15, 1975, has a medical history that includes hypothyroidism, chronic migraines, and osteoarthritis. She takes 50mcg of Levothyroxine daily and Sumatriptan as needed for migraines. In the past, she underwent gallbladder removal surgery in 2012 and a hysterectomy in 2018. She has no known allergies. Her family history includes her father having coronary artery disease and her mother suffering from rheumatoid arthritis. Jane does not smoke and drinks alcohol socially.",
+                            InsuranceType = 2,
+                            IsDeleted = false,
+                            SocialSecurityNumber = "9223246896",
+                            UserId = 6
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.PatientReport", b =>
@@ -1207,7 +1211,7 @@ namespace Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AppointmentId")
+                    b.Property<int?>("AppointmentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -1226,9 +1230,6 @@ namespace Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("PatientId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1238,14 +1239,31 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentId")
-                        .IsUnique();
+                    b.HasIndex("AppointmentId");
 
                     b.HasIndex("DoctorId");
 
-                    b.HasIndex("PatientId");
-
                     b.ToTable("PatientReports");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppointmentId = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Details = "Test",
+                            IsDeleted = false,
+                            Title = "Test"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AppointmentId = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Details = "Test2",
+                            IsDeleted = false,
+                            Title = "Test2"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.SupportRequest", b =>
@@ -1282,6 +1300,7 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -1294,6 +1313,32 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SupportRequests");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "Content",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "loremipsum@loremipsum.com",
+                            FirstName = "Lorem",
+                            IsDeleted = false,
+                            LastName = "Ipsum",
+                            PhoneNumber = "1234567890",
+                            Title = "Title"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "Content2",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "loremipsum2@loremipsum2.com",
+                            FirstName = "Lorem2",
+                            IsDeleted = false,
+                            LastName = "Ipsum2",
+                            PhoneNumber = "1234567890",
+                            Title = "Title2"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -1301,25 +1346,23 @@ namespace Persistence.Migrations
                     b.HasBaseType("Core.Entities.BaseUser");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("BirthDate")
+                    b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("City")
+                    b.Property<int>("City")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Gender")
+                    b.Property<int>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("User");
@@ -1333,15 +1376,15 @@ namespace Persistence.Migrations
                             FirstName = "admin",
                             IsDeleted = false,
                             LastName = "admin",
-                            PasswordHash = new byte[] { 240, 175, 156, 237, 136, 46, 233, 233, 188, 39, 245, 36, 122, 30, 64, 142, 100, 42, 50, 47, 118, 128, 85, 115, 225, 69, 86, 149, 195, 128, 139, 136, 210, 121, 218, 77, 172, 30, 144, 145, 184, 105, 219, 9, 144, 154, 16, 169, 201, 226, 141, 159, 159, 180, 42, 24, 12, 105, 147, 32, 231, 44, 109, 241 },
-                            PasswordSalt = new byte[] { 151, 208, 155, 205, 195, 196, 159, 202, 19, 235, 151, 203, 213, 147, 201, 58, 215, 241, 128, 221, 192, 144, 197, 208, 34, 241, 221, 199, 59, 230, 119, 33, 254, 93, 67, 3, 50, 141, 178, 87, 226, 108, 206, 60, 135, 71, 220, 150, 218, 119, 201, 201, 137, 135, 213, 157, 218, 135, 126, 18, 65, 118, 182, 64, 107, 196, 241, 250, 215, 136, 119, 78, 117, 218, 213, 205, 92, 160, 122, 121, 160, 78, 26, 207, 0, 254, 52, 187, 192, 84, 9, 195, 42, 201, 246, 94, 29, 171, 119, 171, 116, 21, 103, 84, 142, 206, 24, 57, 173, 53, 155, 105, 68, 83, 98, 150, 5, 194, 203, 175, 26, 66, 206, 78, 148, 69, 59, 62 },
+                            PasswordHash = new byte[] { 170, 102, 159, 137, 214, 43, 58, 9, 37, 140, 81, 152, 174, 225, 187, 237, 230, 36, 231, 46, 140, 97, 45, 216, 138, 251, 238, 93, 114, 178, 203, 131, 92, 230, 116, 172, 192, 70, 197, 199, 38, 179, 93, 82, 226, 172, 78, 34, 46, 82, 177, 223, 163, 85, 86, 186, 241, 240, 225, 192, 243, 214, 242, 11 },
+                            PasswordSalt = new byte[] { 28, 178, 197, 84, 11, 201, 174, 60, 45, 104, 26, 243, 187, 105, 162, 132, 81, 120, 3, 31, 21, 72, 224, 114, 155, 17, 97, 68, 168, 145, 254, 244, 145, 166, 98, 141, 31, 190, 200, 199, 133, 87, 85, 189, 48, 9, 84, 218, 34, 92, 174, 140, 149, 18, 181, 74, 49, 226, 102, 251, 162, 122, 234, 246, 86, 122, 57, 157, 130, 235, 33, 147, 48, 87, 195, 19, 220, 162, 30, 108, 92, 221, 215, 57, 227, 102, 3, 27, 41, 186, 247, 182, 82, 180, 252, 91, 223, 149, 138, 12, 176, 226, 85, 228, 37, 145, 85, 123, 14, 219, 189, 251, 196, 147, 205, 79, 21, 98, 88, 83, 153, 178, 94, 102, 52, 116, 250, 136 },
+                            UserType = "admin",
                             Address = "address",
                             BirthDate = new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             City = 35,
                             Gender = 1,
                             PhoneNumber = "1111111",
-                            PhotoUrl = "photoUrl",
-                            UserType = "admin"
+                            PhotoUrl = "photoUrl"
                         },
                         new
                         {
@@ -1351,15 +1394,15 @@ namespace Persistence.Migrations
                             FirstName = "string",
                             IsDeleted = false,
                             LastName = "string",
-                            PasswordHash = new byte[] { 240, 175, 156, 237, 136, 46, 233, 233, 188, 39, 245, 36, 122, 30, 64, 142, 100, 42, 50, 47, 118, 128, 85, 115, 225, 69, 86, 149, 195, 128, 139, 136, 210, 121, 218, 77, 172, 30, 144, 145, 184, 105, 219, 9, 144, 154, 16, 169, 201, 226, 141, 159, 159, 180, 42, 24, 12, 105, 147, 32, 231, 44, 109, 241 },
-                            PasswordSalt = new byte[] { 151, 208, 155, 205, 195, 196, 159, 202, 19, 235, 151, 203, 213, 147, 201, 58, 215, 241, 128, 221, 192, 144, 197, 208, 34, 241, 221, 199, 59, 230, 119, 33, 254, 93, 67, 3, 50, 141, 178, 87, 226, 108, 206, 60, 135, 71, 220, 150, 218, 119, 201, 201, 137, 135, 213, 157, 218, 135, 126, 18, 65, 118, 182, 64, 107, 196, 241, 250, 215, 136, 119, 78, 117, 218, 213, 205, 92, 160, 122, 121, 160, 78, 26, 207, 0, 254, 52, 187, 192, 84, 9, 195, 42, 201, 246, 94, 29, 171, 119, 171, 116, 21, 103, 84, 142, 206, 24, 57, 173, 53, 155, 105, 68, 83, 98, 150, 5, 194, 203, 175, 26, 66, 206, 78, 148, 69, 59, 62 },
+                            PasswordHash = new byte[] { 255, 36, 114, 186, 41, 169, 74, 79, 213, 3, 46, 217, 181, 228, 24, 69, 241, 241, 5, 214, 66, 163, 118, 45, 126, 166, 80, 45, 126, 97, 38, 4, 137, 216, 173, 134, 65, 141, 92, 214, 225, 11, 170, 177, 243, 76, 169, 148, 31, 126, 211, 173, 63, 201, 121, 110, 145, 242, 141, 37, 120, 129, 129, 108 },
+                            PasswordSalt = new byte[] { 23, 106, 45, 27, 37, 35, 238, 208, 161, 34, 163, 203, 254, 182, 116, 119, 224, 163, 47, 37, 191, 118, 219, 42, 143, 224, 151, 13, 88, 73, 76, 24, 175, 104, 214, 138, 235, 225, 116, 121, 187, 85, 40, 81, 174, 11, 98, 119, 196, 58, 208, 254, 1, 30, 192, 89, 7, 159, 53, 89, 46, 206, 58, 244, 53, 171, 10, 246, 14, 109, 215, 56, 90, 7, 101, 214, 165, 158, 62, 168, 135, 244, 153, 102, 77, 132, 15, 191, 241, 10, 34, 223, 7, 112, 148, 10, 99, 191, 0, 127, 231, 227, 214, 220, 121, 221, 92, 81, 113, 30, 61, 146, 144, 168, 61, 253, 147, 213, 72, 120, 207, 112, 226, 41, 34, 103, 62, 10 },
+                            UserType = "doctor",
                             Address = "address",
                             BirthDate = new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             City = 35,
                             Gender = 1,
                             PhoneNumber = "1111111",
-                            PhotoUrl = "photoUrl",
-                            UserType = "doctor"
+                            PhotoUrl = "photoUrl"
                         },
                         new
                         {
@@ -1369,15 +1412,15 @@ namespace Persistence.Migrations
                             FirstName = "string3",
                             IsDeleted = false,
                             LastName = "string3",
-                            PasswordHash = new byte[] { 240, 175, 156, 237, 136, 46, 233, 233, 188, 39, 245, 36, 122, 30, 64, 142, 100, 42, 50, 47, 118, 128, 85, 115, 225, 69, 86, 149, 195, 128, 139, 136, 210, 121, 218, 77, 172, 30, 144, 145, 184, 105, 219, 9, 144, 154, 16, 169, 201, 226, 141, 159, 159, 180, 42, 24, 12, 105, 147, 32, 231, 44, 109, 241 },
-                            PasswordSalt = new byte[] { 151, 208, 155, 205, 195, 196, 159, 202, 19, 235, 151, 203, 213, 147, 201, 58, 215, 241, 128, 221, 192, 144, 197, 208, 34, 241, 221, 199, 59, 230, 119, 33, 254, 93, 67, 3, 50, 141, 178, 87, 226, 108, 206, 60, 135, 71, 220, 150, 218, 119, 201, 201, 137, 135, 213, 157, 218, 135, 126, 18, 65, 118, 182, 64, 107, 196, 241, 250, 215, 136, 119, 78, 117, 218, 213, 205, 92, 160, 122, 121, 160, 78, 26, 207, 0, 254, 52, 187, 192, 84, 9, 195, 42, 201, 246, 94, 29, 171, 119, 171, 116, 21, 103, 84, 142, 206, 24, 57, 173, 53, 155, 105, 68, 83, 98, 150, 5, 194, 203, 175, 26, 66, 206, 78, 148, 69, 59, 62 },
+                            PasswordHash = new byte[] { 255, 36, 114, 186, 41, 169, 74, 79, 213, 3, 46, 217, 181, 228, 24, 69, 241, 241, 5, 214, 66, 163, 118, 45, 126, 166, 80, 45, 126, 97, 38, 4, 137, 216, 173, 134, 65, 141, 92, 214, 225, 11, 170, 177, 243, 76, 169, 148, 31, 126, 211, 173, 63, 201, 121, 110, 145, 242, 141, 37, 120, 129, 129, 108 },
+                            PasswordSalt = new byte[] { 23, 106, 45, 27, 37, 35, 238, 208, 161, 34, 163, 203, 254, 182, 116, 119, 224, 163, 47, 37, 191, 118, 219, 42, 143, 224, 151, 13, 88, 73, 76, 24, 175, 104, 214, 138, 235, 225, 116, 121, 187, 85, 40, 81, 174, 11, 98, 119, 196, 58, 208, 254, 1, 30, 192, 89, 7, 159, 53, 89, 46, 206, 58, 244, 53, 171, 10, 246, 14, 109, 215, 56, 90, 7, 101, 214, 165, 158, 62, 168, 135, 244, 153, 102, 77, 132, 15, 191, 241, 10, 34, 223, 7, 112, 148, 10, 99, 191, 0, 127, 231, 227, 214, 220, 121, 221, 92, 81, 113, 30, 61, 146, 144, 168, 61, 253, 147, 213, 72, 120, 207, 112, 226, 41, 34, 103, 62, 10 },
+                            UserType = "doctor",
                             Address = "address",
                             BirthDate = new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             City = 35,
                             Gender = 1,
                             PhoneNumber = "1111111",
-                            PhotoUrl = "photoUrl",
-                            UserType = "doctor"
+                            PhotoUrl = "photoUrl"
                         },
                         new
                         {
@@ -1387,15 +1430,51 @@ namespace Persistence.Migrations
                             FirstName = "string4",
                             IsDeleted = false,
                             LastName = "string4",
-                            PasswordHash = new byte[] { 240, 175, 156, 237, 136, 46, 233, 233, 188, 39, 245, 36, 122, 30, 64, 142, 100, 42, 50, 47, 118, 128, 85, 115, 225, 69, 86, 149, 195, 128, 139, 136, 210, 121, 218, 77, 172, 30, 144, 145, 184, 105, 219, 9, 144, 154, 16, 169, 201, 226, 141, 159, 159, 180, 42, 24, 12, 105, 147, 32, 231, 44, 109, 241 },
-                            PasswordSalt = new byte[] { 151, 208, 155, 205, 195, 196, 159, 202, 19, 235, 151, 203, 213, 147, 201, 58, 215, 241, 128, 221, 192, 144, 197, 208, 34, 241, 221, 199, 59, 230, 119, 33, 254, 93, 67, 3, 50, 141, 178, 87, 226, 108, 206, 60, 135, 71, 220, 150, 218, 119, 201, 201, 137, 135, 213, 157, 218, 135, 126, 18, 65, 118, 182, 64, 107, 196, 241, 250, 215, 136, 119, 78, 117, 218, 213, 205, 92, 160, 122, 121, 160, 78, 26, 207, 0, 254, 52, 187, 192, 84, 9, 195, 42, 201, 246, 94, 29, 171, 119, 171, 116, 21, 103, 84, 142, 206, 24, 57, 173, 53, 155, 105, 68, 83, 98, 150, 5, 194, 203, 175, 26, 66, 206, 78, 148, 69, 59, 62 },
+                            PasswordHash = new byte[] { 255, 36, 114, 186, 41, 169, 74, 79, 213, 3, 46, 217, 181, 228, 24, 69, 241, 241, 5, 214, 66, 163, 118, 45, 126, 166, 80, 45, 126, 97, 38, 4, 137, 216, 173, 134, 65, 141, 92, 214, 225, 11, 170, 177, 243, 76, 169, 148, 31, 126, 211, 173, 63, 201, 121, 110, 145, 242, 141, 37, 120, 129, 129, 108 },
+                            PasswordSalt = new byte[] { 23, 106, 45, 27, 37, 35, 238, 208, 161, 34, 163, 203, 254, 182, 116, 119, 224, 163, 47, 37, 191, 118, 219, 42, 143, 224, 151, 13, 88, 73, 76, 24, 175, 104, 214, 138, 235, 225, 116, 121, 187, 85, 40, 81, 174, 11, 98, 119, 196, 58, 208, 254, 1, 30, 192, 89, 7, 159, 53, 89, 46, 206, 58, 244, 53, 171, 10, 246, 14, 109, 215, 56, 90, 7, 101, 214, 165, 158, 62, 168, 135, 244, 153, 102, 77, 132, 15, 191, 241, 10, 34, 223, 7, 112, 148, 10, 99, 191, 0, 127, 231, 227, 214, 220, 121, 221, 92, 81, 113, 30, 61, 146, 144, 168, 61, 253, 147, 213, 72, 120, 207, 112, 226, 41, 34, 103, 62, 10 },
+                            UserType = "doctor",
                             Address = "address",
                             BirthDate = new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             City = 35,
                             Gender = 1,
                             PhoneNumber = "1111111",
-                            PhotoUrl = "photoUrl",
-                            UserType = "doctor"
+                            PhotoUrl = "photoUrl"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "johndoe",
+                            FirstName = "John",
+                            IsDeleted = false,
+                            LastName = "Doe",
+                            PasswordHash = new byte[] { 11, 164, 6, 74, 144, 156, 222, 69, 118, 136, 20, 6, 124, 25, 181, 144, 74, 46, 141, 248, 88, 218, 65, 47, 253, 207, 245, 222, 197, 246, 171, 213, 169, 43, 102, 104, 54, 160, 174, 116, 4, 148, 202, 194, 19, 119, 49, 162, 227, 64, 197, 164, 45, 112, 14, 91, 118, 120, 219, 239, 130, 55, 124, 64 },
+                            PasswordSalt = new byte[] { 143, 28, 1, 107, 183, 119, 142, 114, 47, 183, 229, 176, 160, 169, 165, 124, 108, 239, 186, 63, 255, 196, 172, 154, 134, 96, 65, 187, 16, 72, 198, 53, 203, 115, 213, 193, 235, 159, 198, 121, 161, 122, 87, 4, 9, 229, 102, 225, 64, 216, 243, 24, 219, 112, 103, 163, 89, 64, 190, 145, 228, 195, 174, 21, 96, 68, 96, 111, 153, 141, 65, 56, 209, 15, 195, 129, 72, 137, 207, 214, 251, 231, 142, 137, 223, 2, 70, 51, 134, 30, 119, 134, 214, 144, 196, 211, 204, 176, 110, 197, 243, 158, 10, 207, 178, 235, 170, 250, 61, 64, 114, 118, 201, 142, 27, 247, 11, 100, 26, 107, 13, 206, 222, 198, 129, 81, 9, 42 },
+                            UserType = "patient",
+                            Address = "address",
+                            BirthDate = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            City = 34,
+                            Gender = 1,
+                            PhoneNumber = "1111111",
+                            PhotoUrl = "photoUrl"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "janesmith",
+                            FirstName = "Jane",
+                            IsDeleted = false,
+                            LastName = "Smith",
+                            PasswordHash = new byte[] { 212, 190, 13, 146, 140, 149, 151, 212, 207, 31, 220, 35, 166, 150, 115, 226, 253, 62, 28, 76, 141, 109, 146, 112, 138, 66, 99, 56, 145, 170, 198, 26, 91, 153, 32, 149, 208, 121, 236, 4, 165, 44, 163, 233, 151, 184, 216, 114, 132, 13, 235, 41, 245, 232, 247, 158, 145, 227, 129, 221, 128, 227, 2, 225 },
+                            PasswordSalt = new byte[] { 209, 137, 9, 80, 112, 173, 245, 201, 60, 247, 186, 100, 100, 212, 168, 112, 47, 182, 229, 192, 107, 180, 12, 132, 19, 169, 171, 210, 152, 15, 12, 218, 204, 251, 117, 9, 150, 8, 168, 60, 8, 7, 61, 42, 201, 29, 40, 124, 66, 94, 220, 136, 62, 29, 217, 181, 76, 73, 20, 208, 49, 12, 61, 95, 67, 89, 30, 73, 156, 101, 15, 147, 201, 142, 110, 128, 51, 92, 88, 206, 66, 107, 198, 95, 44, 128, 37, 4, 42, 202, 115, 97, 48, 238, 201, 8, 111, 188, 183, 36, 245, 22, 121, 237, 165, 7, 3, 45, 186, 98, 6, 10, 182, 79, 8, 225, 96, 104, 230, 38, 66, 209, 225, 53, 137, 251, 255, 186 },
+                            UserType = "patient",
+                            Address = "address",
+                            BirthDate = new DateTime(1975, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            City = 6,
+                            Gender = 1,
+                            PhoneNumber = "1111111",
+                            PhotoUrl = "photoUrl"
                         });
                 });
 
@@ -1404,14 +1483,12 @@ namespace Persistence.Migrations
                     b.HasOne("Core.Entities.BaseUser", "BaseUser")
                         .WithMany("UserOperationClaims")
                         .HasForeignKey("BaseUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Core.Entities.OperationClaim", "OperationClaim")
                         .WithMany()
                         .HasForeignKey("OperationClaimId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("BaseUser");
 
@@ -1423,17 +1500,17 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Entities.DoctorAvailability", "DoctorAvailability")
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorAvailabilityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Domain.Entities.Doctor", null)
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Domain.Entities.Patient", "Patient")
                         .WithMany("Appointments")
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("DoctorAvailability");
 
@@ -1445,12 +1522,12 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Entities.Department", "Department")
                         .WithMany("Doctors")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithOne("Doctor")
+                        .HasForeignKey("Domain.Entities.Doctor", "UserId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Department");
 
@@ -1462,7 +1539,7 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Entities.Doctor", "Doctor")
                         .WithMany("DoctorAvailabilities")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Doctor");
                 });
@@ -1472,7 +1549,7 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("Feedbacks")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("User");
                 });
@@ -1480,9 +1557,9 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Patient", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithOne("Patient")
+                        .HasForeignKey("Domain.Entities.Patient", "UserId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("User");
                 });
@@ -1490,20 +1567,14 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.PatientReport", b =>
                 {
                     b.HasOne("Domain.Entities.Appointment", "Appointment")
-                        .WithOne("PatientReport")
-                        .HasForeignKey("Domain.Entities.PatientReport", "AppointmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .WithMany("PatientReports")
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Domain.Entities.Doctor", null)
                         .WithMany("PatientReports")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Domain.Entities.Patient", null)
-                        .WithMany("PatientReports")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Appointment");
                 });
@@ -1515,8 +1586,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Appointment", b =>
                 {
-                    b.Navigation("PatientReport")
-                        .IsRequired();
+                    b.Navigation("PatientReports");
                 });
 
             modelBuilder.Entity("Domain.Entities.Department", b =>
@@ -1541,13 +1611,17 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Patient", b =>
                 {
                     b.Navigation("Appointments");
-
-                    b.Navigation("PatientReports");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
+                    b.Navigation("Doctor")
+                        .IsRequired();
+
                     b.Navigation("Feedbacks");
+
+                    b.Navigation("Patient")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

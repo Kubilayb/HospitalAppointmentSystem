@@ -10,10 +10,10 @@ using static Application.Features.Departments.Constants.DepartmentsOperationClai
 
 namespace Application.Features.Departments.Commands.SoftDelete
 {
-    public class SoftDeleteDepartmentCommand : IRequest<SoftDeleteDepartmentResponse>
+    public class SoftDeleteDepartmentCommand : IRequest<SoftDeleteDepartmentResponse>, ISecuredRequest, ILoggableRequest
     {
+        public string[] RequiredRoles => [Admin, DepartmentsOperationClaims.Delete];
         public int Id { get; set; }
-
 
         public class SoftDeleteDepartmentCommandHandler : IRequestHandler<SoftDeleteDepartmentCommand, SoftDeleteDepartmentResponse>
         {
@@ -30,7 +30,7 @@ namespace Application.Features.Departments.Commands.SoftDelete
             {
                 Department? department = await _departmentRepository.GetAsync(i => i.Id == request.Id);
 
-                if (department == null)
+                if (department == null || department.IsDeleted == true)
                 {
                     throw new NotFoundException(DepartmentsMessages.DepartmentNotExists);
                 }
