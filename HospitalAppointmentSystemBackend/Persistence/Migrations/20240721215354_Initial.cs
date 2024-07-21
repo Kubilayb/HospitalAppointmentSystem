@@ -276,7 +276,6 @@ namespace Persistence.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DoctorId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -289,12 +288,6 @@ namespace Persistence.Migrations
                         name: "FK_Appointments_DoctorAvailabilities_DoctorAvailabilityId",
                         column: x => x.DoctorAvailabilityId,
                         principalTable: "DoctorAvailabilities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
-                    table.ForeignKey(
-                        name: "FK_Appointments_Doctors_DoctorId",
-                        column: x => x.DoctorId,
-                        principalTable: "Doctors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
@@ -314,7 +307,6 @@ namespace Persistence.Migrations
                     AppointmentId = table.Column<int>(type: "int", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DoctorId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -329,12 +321,6 @@ namespace Persistence.Migrations
                         principalTable: "Appointments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
-                    table.ForeignKey(
-                        name: "FK_PatientReports_Doctors_DoctorId",
-                        column: x => x.DoctorId,
-                        principalTable: "Doctors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.InsertData(
@@ -342,12 +328,12 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "Address", "BirthDate", "City", "CreatedDate", "DeletedDate", "Discriminator", "Email", "FirstName", "Gender", "IsDeleted", "LastName", "PasswordHash", "PasswordSalt", "PhoneNumber", "PhotoUrl", "UpdatedDate", "UserType" },
                 values: new object[,]
                 {
-                    { 1, "address", new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "admin", "admin", 1, false, "admin", new byte[] { 170, 102, 159, 137, 214, 43, 58, 9, 37, 140, 81, 152, 174, 225, 187, 237, 230, 36, 231, 46, 140, 97, 45, 216, 138, 251, 238, 93, 114, 178, 203, 131, 92, 230, 116, 172, 192, 70, 197, 199, 38, 179, 93, 82, 226, 172, 78, 34, 46, 82, 177, 223, 163, 85, 86, 186, 241, 240, 225, 192, 243, 214, 242, 11 }, new byte[] { 28, 178, 197, 84, 11, 201, 174, 60, 45, 104, 26, 243, 187, 105, 162, 132, 81, 120, 3, 31, 21, 72, 224, 114, 155, 17, 97, 68, 168, 145, 254, 244, 145, 166, 98, 141, 31, 190, 200, 199, 133, 87, 85, 189, 48, 9, 84, 218, 34, 92, 174, 140, 149, 18, 181, 74, 49, 226, 102, 251, 162, 122, 234, 246, 86, 122, 57, 157, 130, 235, 33, 147, 48, 87, 195, 19, 220, 162, 30, 108, 92, 221, 215, 57, 227, 102, 3, 27, 41, 186, 247, 182, 82, 180, 252, 91, 223, 149, 138, 12, 176, 226, 85, 228, 37, 145, 85, 123, 14, 219, 189, 251, 196, 147, 205, 79, 21, 98, 88, 83, 153, 178, 94, 102, 52, 116, 250, 136 }, "1111111", "photoUrl", null, "admin" },
-                    { 2, "address", new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "string", "string", 1, false, "string", new byte[] { 255, 36, 114, 186, 41, 169, 74, 79, 213, 3, 46, 217, 181, 228, 24, 69, 241, 241, 5, 214, 66, 163, 118, 45, 126, 166, 80, 45, 126, 97, 38, 4, 137, 216, 173, 134, 65, 141, 92, 214, 225, 11, 170, 177, 243, 76, 169, 148, 31, 126, 211, 173, 63, 201, 121, 110, 145, 242, 141, 37, 120, 129, 129, 108 }, new byte[] { 23, 106, 45, 27, 37, 35, 238, 208, 161, 34, 163, 203, 254, 182, 116, 119, 224, 163, 47, 37, 191, 118, 219, 42, 143, 224, 151, 13, 88, 73, 76, 24, 175, 104, 214, 138, 235, 225, 116, 121, 187, 85, 40, 81, 174, 11, 98, 119, 196, 58, 208, 254, 1, 30, 192, 89, 7, 159, 53, 89, 46, 206, 58, 244, 53, 171, 10, 246, 14, 109, 215, 56, 90, 7, 101, 214, 165, 158, 62, 168, 135, 244, 153, 102, 77, 132, 15, 191, 241, 10, 34, 223, 7, 112, 148, 10, 99, 191, 0, 127, 231, 227, 214, 220, 121, 221, 92, 81, 113, 30, 61, 146, 144, 168, 61, 253, 147, 213, 72, 120, 207, 112, 226, 41, 34, 103, 62, 10 }, "1111111", "photoUrl", null, "doctor" },
-                    { 3, "address", new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "string3", "string3", 1, false, "string3", new byte[] { 255, 36, 114, 186, 41, 169, 74, 79, 213, 3, 46, 217, 181, 228, 24, 69, 241, 241, 5, 214, 66, 163, 118, 45, 126, 166, 80, 45, 126, 97, 38, 4, 137, 216, 173, 134, 65, 141, 92, 214, 225, 11, 170, 177, 243, 76, 169, 148, 31, 126, 211, 173, 63, 201, 121, 110, 145, 242, 141, 37, 120, 129, 129, 108 }, new byte[] { 23, 106, 45, 27, 37, 35, 238, 208, 161, 34, 163, 203, 254, 182, 116, 119, 224, 163, 47, 37, 191, 118, 219, 42, 143, 224, 151, 13, 88, 73, 76, 24, 175, 104, 214, 138, 235, 225, 116, 121, 187, 85, 40, 81, 174, 11, 98, 119, 196, 58, 208, 254, 1, 30, 192, 89, 7, 159, 53, 89, 46, 206, 58, 244, 53, 171, 10, 246, 14, 109, 215, 56, 90, 7, 101, 214, 165, 158, 62, 168, 135, 244, 153, 102, 77, 132, 15, 191, 241, 10, 34, 223, 7, 112, 148, 10, 99, 191, 0, 127, 231, 227, 214, 220, 121, 221, 92, 81, 113, 30, 61, 146, 144, 168, 61, 253, 147, 213, 72, 120, 207, 112, 226, 41, 34, 103, 62, 10 }, "1111111", "photoUrl", null, "doctor" },
-                    { 4, "address", new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "string4", "string4", 1, false, "string4", new byte[] { 255, 36, 114, 186, 41, 169, 74, 79, 213, 3, 46, 217, 181, 228, 24, 69, 241, 241, 5, 214, 66, 163, 118, 45, 126, 166, 80, 45, 126, 97, 38, 4, 137, 216, 173, 134, 65, 141, 92, 214, 225, 11, 170, 177, 243, 76, 169, 148, 31, 126, 211, 173, 63, 201, 121, 110, 145, 242, 141, 37, 120, 129, 129, 108 }, new byte[] { 23, 106, 45, 27, 37, 35, 238, 208, 161, 34, 163, 203, 254, 182, 116, 119, 224, 163, 47, 37, 191, 118, 219, 42, 143, 224, 151, 13, 88, 73, 76, 24, 175, 104, 214, 138, 235, 225, 116, 121, 187, 85, 40, 81, 174, 11, 98, 119, 196, 58, 208, 254, 1, 30, 192, 89, 7, 159, 53, 89, 46, 206, 58, 244, 53, 171, 10, 246, 14, 109, 215, 56, 90, 7, 101, 214, 165, 158, 62, 168, 135, 244, 153, 102, 77, 132, 15, 191, 241, 10, 34, 223, 7, 112, 148, 10, 99, 191, 0, 127, 231, 227, 214, 220, 121, 221, 92, 81, 113, 30, 61, 146, 144, 168, 61, 253, 147, 213, 72, 120, 207, 112, 226, 41, 34, 103, 62, 10 }, "1111111", "photoUrl", null, "doctor" },
-                    { 5, "address", new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 34, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "johndoe", "John", 1, false, "Doe", new byte[] { 11, 164, 6, 74, 144, 156, 222, 69, 118, 136, 20, 6, 124, 25, 181, 144, 74, 46, 141, 248, 88, 218, 65, 47, 253, 207, 245, 222, 197, 246, 171, 213, 169, 43, 102, 104, 54, 160, 174, 116, 4, 148, 202, 194, 19, 119, 49, 162, 227, 64, 197, 164, 45, 112, 14, 91, 118, 120, 219, 239, 130, 55, 124, 64 }, new byte[] { 143, 28, 1, 107, 183, 119, 142, 114, 47, 183, 229, 176, 160, 169, 165, 124, 108, 239, 186, 63, 255, 196, 172, 154, 134, 96, 65, 187, 16, 72, 198, 53, 203, 115, 213, 193, 235, 159, 198, 121, 161, 122, 87, 4, 9, 229, 102, 225, 64, 216, 243, 24, 219, 112, 103, 163, 89, 64, 190, 145, 228, 195, 174, 21, 96, 68, 96, 111, 153, 141, 65, 56, 209, 15, 195, 129, 72, 137, 207, 214, 251, 231, 142, 137, 223, 2, 70, 51, 134, 30, 119, 134, 214, 144, 196, 211, 204, 176, 110, 197, 243, 158, 10, 207, 178, 235, 170, 250, 61, 64, 114, 118, 201, 142, 27, 247, 11, 100, 26, 107, 13, 206, 222, 198, 129, 81, 9, 42 }, "1111111", "photoUrl", null, "patient" },
-                    { 6, "address", new DateTime(1975, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "janesmith", "Jane", 1, false, "Smith", new byte[] { 212, 190, 13, 146, 140, 149, 151, 212, 207, 31, 220, 35, 166, 150, 115, 226, 253, 62, 28, 76, 141, 109, 146, 112, 138, 66, 99, 56, 145, 170, 198, 26, 91, 153, 32, 149, 208, 121, 236, 4, 165, 44, 163, 233, 151, 184, 216, 114, 132, 13, 235, 41, 245, 232, 247, 158, 145, 227, 129, 221, 128, 227, 2, 225 }, new byte[] { 209, 137, 9, 80, 112, 173, 245, 201, 60, 247, 186, 100, 100, 212, 168, 112, 47, 182, 229, 192, 107, 180, 12, 132, 19, 169, 171, 210, 152, 15, 12, 218, 204, 251, 117, 9, 150, 8, 168, 60, 8, 7, 61, 42, 201, 29, 40, 124, 66, 94, 220, 136, 62, 29, 217, 181, 76, 73, 20, 208, 49, 12, 61, 95, 67, 89, 30, 73, 156, 101, 15, 147, 201, 142, 110, 128, 51, 92, 88, 206, 66, 107, 198, 95, 44, 128, 37, 4, 42, 202, 115, 97, 48, 238, 201, 8, 111, 188, 183, 36, 245, 22, 121, 237, 165, 7, 3, 45, 186, 98, 6, 10, 182, 79, 8, 225, 96, 104, 230, 38, 66, 209, 225, 53, 137, 251, 255, 186 }, "1111111", "photoUrl", null, "patient" }
+                    { 1, "address", new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "admin", "admin", 1, false, "admin", new byte[] { 182, 26, 122, 26, 113, 228, 51, 245, 212, 101, 167, 78, 135, 250, 191, 71, 244, 226, 100, 100, 84, 13, 49, 7, 77, 180, 55, 224, 191, 212, 252, 202, 232, 126, 148, 25, 80, 177, 33, 79, 93, 31, 82, 99, 119, 156, 219, 173, 131, 57, 137, 88, 149, 53, 23, 176, 129, 238, 112, 162, 147, 143, 82, 95 }, new byte[] { 69, 28, 19, 73, 126, 242, 134, 100, 177, 211, 26, 41, 221, 154, 186, 39, 233, 223, 208, 187, 129, 126, 172, 138, 66, 182, 93, 46, 193, 37, 103, 103, 85, 70, 229, 107, 145, 46, 77, 196, 0, 197, 142, 126, 88, 220, 31, 157, 228, 179, 156, 159, 88, 57, 1, 150, 78, 154, 174, 3, 185, 250, 21, 67, 37, 3, 32, 129, 221, 11, 39, 79, 255, 167, 191, 70, 13, 185, 28, 54, 56, 33, 28, 73, 25, 227, 117, 10, 188, 13, 119, 138, 27, 75, 35, 46, 215, 100, 106, 46, 237, 19, 21, 84, 133, 236, 109, 15, 134, 21, 225, 105, 10, 154, 9, 180, 2, 78, 88, 249, 24, 134, 103, 4, 33, 49, 30, 190 }, "1111111", "photoUrl", null, "admin" },
+                    { 2, "address", new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "string", "string", 1, false, "string", new byte[] { 124, 53, 227, 228, 190, 68, 30, 10, 192, 8, 146, 115, 146, 83, 219, 62, 197, 55, 220, 68, 166, 64, 22, 124, 175, 250, 111, 147, 186, 13, 105, 135, 171, 227, 139, 188, 132, 46, 216, 88, 86, 70, 109, 163, 208, 128, 45, 117, 124, 22, 27, 14, 40, 139, 225, 27, 87, 72, 198, 162, 130, 117, 217, 240 }, new byte[] { 216, 97, 190, 132, 68, 147, 192, 93, 21, 215, 32, 89, 220, 32, 219, 182, 41, 108, 91, 13, 232, 6, 128, 41, 0, 45, 109, 6, 245, 136, 1, 61, 245, 113, 119, 228, 137, 171, 247, 119, 168, 63, 140, 56, 68, 186, 84, 8, 163, 43, 139, 72, 76, 53, 46, 50, 218, 236, 167, 139, 62, 230, 2, 65, 11, 41, 36, 170, 74, 232, 183, 150, 235, 199, 196, 149, 107, 55, 53, 224, 93, 245, 160, 150, 149, 211, 131, 206, 190, 37, 189, 148, 144, 19, 75, 216, 99, 80, 126, 21, 3, 245, 113, 128, 105, 218, 177, 143, 80, 218, 66, 207, 194, 22, 174, 138, 36, 117, 33, 58, 45, 179, 239, 79, 108, 26, 219, 178 }, "1111111", "photoUrl", null, "doctor" },
+                    { 3, "address", new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "string3", "string3", 1, false, "string3", new byte[] { 124, 53, 227, 228, 190, 68, 30, 10, 192, 8, 146, 115, 146, 83, 219, 62, 197, 55, 220, 68, 166, 64, 22, 124, 175, 250, 111, 147, 186, 13, 105, 135, 171, 227, 139, 188, 132, 46, 216, 88, 86, 70, 109, 163, 208, 128, 45, 117, 124, 22, 27, 14, 40, 139, 225, 27, 87, 72, 198, 162, 130, 117, 217, 240 }, new byte[] { 216, 97, 190, 132, 68, 147, 192, 93, 21, 215, 32, 89, 220, 32, 219, 182, 41, 108, 91, 13, 232, 6, 128, 41, 0, 45, 109, 6, 245, 136, 1, 61, 245, 113, 119, 228, 137, 171, 247, 119, 168, 63, 140, 56, 68, 186, 84, 8, 163, 43, 139, 72, 76, 53, 46, 50, 218, 236, 167, 139, 62, 230, 2, 65, 11, 41, 36, 170, 74, 232, 183, 150, 235, 199, 196, 149, 107, 55, 53, 224, 93, 245, 160, 150, 149, 211, 131, 206, 190, 37, 189, 148, 144, 19, 75, 216, 99, 80, 126, 21, 3, 245, 113, 128, 105, 218, 177, 143, 80, 218, 66, 207, 194, 22, 174, 138, 36, 117, 33, 58, 45, 179, 239, 79, 108, 26, 219, 178 }, "1111111", "photoUrl", null, "doctor" },
+                    { 4, "address", new DateTime(1900, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "string4", "string4", 1, false, "string4", new byte[] { 124, 53, 227, 228, 190, 68, 30, 10, 192, 8, 146, 115, 146, 83, 219, 62, 197, 55, 220, 68, 166, 64, 22, 124, 175, 250, 111, 147, 186, 13, 105, 135, 171, 227, 139, 188, 132, 46, 216, 88, 86, 70, 109, 163, 208, 128, 45, 117, 124, 22, 27, 14, 40, 139, 225, 27, 87, 72, 198, 162, 130, 117, 217, 240 }, new byte[] { 216, 97, 190, 132, 68, 147, 192, 93, 21, 215, 32, 89, 220, 32, 219, 182, 41, 108, 91, 13, 232, 6, 128, 41, 0, 45, 109, 6, 245, 136, 1, 61, 245, 113, 119, 228, 137, 171, 247, 119, 168, 63, 140, 56, 68, 186, 84, 8, 163, 43, 139, 72, 76, 53, 46, 50, 218, 236, 167, 139, 62, 230, 2, 65, 11, 41, 36, 170, 74, 232, 183, 150, 235, 199, 196, 149, 107, 55, 53, 224, 93, 245, 160, 150, 149, 211, 131, 206, 190, 37, 189, 148, 144, 19, 75, 216, 99, 80, 126, 21, 3, 245, 113, 128, 105, 218, 177, 143, 80, 218, 66, 207, 194, 22, 174, 138, 36, 117, 33, 58, 45, 179, 239, 79, 108, 26, 219, 178 }, "1111111", "photoUrl", null, "doctor" },
+                    { 5, "address", new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 34, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "johndoe", "John", 1, false, "Doe", new byte[] { 239, 28, 39, 143, 80, 7, 248, 165, 169, 4, 48, 166, 128, 146, 188, 143, 40, 158, 122, 12, 134, 146, 222, 18, 144, 163, 167, 47, 88, 167, 133, 52, 19, 3, 24, 107, 21, 75, 140, 164, 24, 246, 42, 75, 22, 156, 125, 114, 226, 187, 0, 96, 90, 57, 48, 232, 221, 226, 151, 207, 81, 180, 245, 159 }, new byte[] { 64, 193, 30, 126, 132, 162, 166, 192, 244, 178, 74, 151, 108, 67, 203, 44, 253, 121, 66, 160, 58, 197, 6, 166, 192, 110, 245, 221, 212, 128, 232, 42, 94, 176, 26, 30, 121, 59, 6, 147, 193, 55, 222, 115, 241, 33, 144, 64, 54, 220, 31, 194, 233, 107, 165, 190, 175, 207, 197, 184, 138, 58, 20, 206, 147, 219, 128, 246, 236, 80, 152, 140, 57, 169, 142, 109, 19, 147, 39, 90, 167, 5, 204, 235, 147, 8, 59, 240, 193, 241, 136, 70, 124, 64, 184, 161, 188, 19, 68, 228, 59, 144, 184, 168, 53, 209, 63, 237, 178, 228, 84, 231, 145, 6, 46, 191, 131, 145, 184, 226, 60, 79, 200, 126, 255, 101, 170, 100 }, "1111111", "photoUrl", null, "patient" },
+                    { 6, "address", new DateTime(1975, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", "janesmith", "Jane", 1, false, "Smith", new byte[] { 214, 149, 137, 196, 243, 194, 183, 249, 177, 142, 84, 83, 205, 116, 110, 16, 40, 185, 128, 121, 185, 162, 242, 13, 64, 176, 52, 61, 209, 253, 63, 134, 90, 170, 23, 173, 233, 45, 77, 140, 210, 215, 115, 232, 168, 206, 91, 24, 13, 118, 208, 87, 214, 201, 169, 37, 225, 32, 230, 62, 235, 37, 239, 23 }, new byte[] { 212, 90, 231, 221, 62, 134, 158, 58, 181, 119, 108, 144, 147, 189, 125, 69, 213, 80, 107, 18, 164, 73, 27, 101, 242, 66, 202, 27, 81, 222, 36, 222, 158, 206, 253, 121, 251, 61, 143, 158, 122, 46, 190, 194, 27, 203, 192, 242, 64, 107, 2, 162, 97, 47, 162, 14, 147, 205, 27, 208, 131, 1, 113, 218, 130, 182, 20, 165, 234, 48, 150, 215, 9, 234, 135, 116, 214, 182, 137, 3, 75, 203, 165, 244, 131, 104, 192, 122, 235, 139, 166, 181, 16, 17, 66, 238, 74, 228, 233, 151, 155, 64, 93, 23, 83, 116, 151, 242, 72, 246, 202, 60, 46, 222, 196, 154, 127, 251, 207, 219, 222, 13, 141, 117, 206, 113, 26, 216 }, "1111111", "photoUrl", null, "patient" }
                 });
 
             migrationBuilder.InsertData(
@@ -505,32 +491,27 @@ namespace Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "Appointments",
-                columns: new[] { "Id", "CreatedDate", "DeletedDate", "DoctorAvailabilityId", "DoctorId", "EndTime", "IsDeleted", "PatientId", "StartTime", "Status", "UpdatedDate" },
+                columns: new[] { "Id", "CreatedDate", "DeletedDate", "DoctorAvailabilityId", "EndTime", "IsDeleted", "PatientId", "StartTime", "Status", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new DateTime(2024, 6, 30, 11, 0, 0, 0, DateTimeKind.Unspecified), false, 1, new DateTime(2024, 6, 30, 10, 30, 0, 0, DateTimeKind.Unspecified), 3, null },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new DateTime(2024, 6, 30, 12, 0, 0, 0, DateTimeKind.Unspecified), false, 2, new DateTime(2024, 6, 30, 11, 0, 0, 0, DateTimeKind.Unspecified), 3, null },
-                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 4, null, new DateTime(2024, 7, 4, 10, 0, 0, 0, DateTimeKind.Unspecified), false, 2, new DateTime(2024, 7, 4, 9, 30, 0, 0, DateTimeKind.Unspecified), 3, null }
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, new DateTime(2024, 6, 30, 11, 0, 0, 0, DateTimeKind.Unspecified), false, 1, new DateTime(2024, 6, 30, 10, 30, 0, 0, DateTimeKind.Unspecified), 2, null },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, new DateTime(2024, 6, 30, 12, 0, 0, 0, DateTimeKind.Unspecified), false, 2, new DateTime(2024, 6, 30, 11, 0, 0, 0, DateTimeKind.Unspecified), 2, null },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 4, new DateTime(2024, 7, 4, 10, 0, 0, 0, DateTimeKind.Unspecified), false, 2, new DateTime(2024, 7, 4, 9, 30, 0, 0, DateTimeKind.Unspecified), 2, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "PatientReports",
-                columns: new[] { "Id", "AppointmentId", "CreatedDate", "DeletedDate", "Details", "DoctorId", "IsDeleted", "Title", "UpdatedDate" },
+                columns: new[] { "Id", "AppointmentId", "CreatedDate", "DeletedDate", "Details", "IsDeleted", "Title", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Test", null, false, "Test", null },
-                    { 2, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Test2", null, false, "Test2", null }
+                    { 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Test", false, "Test", null },
+                    { 2, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Test2", false, "Test2", null }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_DoctorAvailabilityId",
                 table: "Appointments",
                 column: "DoctorAvailabilityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Appointments_DoctorId",
-                table: "Appointments",
-                column: "DoctorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_PatientId",
@@ -563,11 +544,6 @@ namespace Persistence.Migrations
                 name: "IX_PatientReports_AppointmentId",
                 table: "PatientReports",
                 column: "AppointmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PatientReports_DoctorId",
-                table: "PatientReports",
-                column: "DoctorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Patients_UserId",

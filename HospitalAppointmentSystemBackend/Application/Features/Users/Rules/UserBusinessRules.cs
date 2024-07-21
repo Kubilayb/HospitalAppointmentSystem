@@ -1,4 +1,4 @@
-﻿using Application.Features.Auth.Constants;
+﻿using Application.Features.Users.Constants;
 using Application.Repositories;
 using Application.Services.DoctorService;
 using Application.Services.OperationClaimService;
@@ -32,7 +32,42 @@ namespace Application.Features.Users.Rules
             User? user = await _userRepisotory.GetAsync(i => i.Email == email);
             if (user != null)
             {
-                throw new Exception(AuthMessages.EmailAlreadyUsed);
+                throw new BusinessException(UsersMessages.EmailAlreadyUsed);
+            }
+        }
+
+        public async Task UserShouldBeExist(int id)
+        {
+            User? user = await _userRepisotory.GetAsync(i => i.Id == id);
+            if (user == null)
+            {
+                throw new BusinessException(UsersMessages.UserNotExists);
+            }
+        }
+
+        public async Task UserDeleteControl(int id)
+        {
+            User? user = await _userRepisotory.GetAsync(i => i.Id == id);
+            if (user == null || user.IsDeleted == true)
+            {
+                throw new BusinessException(UsersMessages.UserNotExists);
+            }
+        }
+
+        public async Task DoctorOrPatientDelete(int id)
+        {
+            User? user = await _userRepisotory.GetAsync(i => i.Id == id);
+            Doctor? doctor = await _doctorService.DoctorGetByUserId(id);
+            Patient? patient = await _patientService.PatientGetByUserId(id);
+            if (user.UserType == "doctor")
+            {
+                doctor.IsDeleted = true;
+                _doctorService.UpdateDoctorAsync(doctor);
+            }
+            if (user.UserType == "patient")
+            {
+                patient.IsDeleted = true;
+                _patientService.UpdatePatientAsync(patient);
             }
         }
 
@@ -63,7 +98,7 @@ namespace Application.Features.Users.Rules
             }
             else
             {
-                throw new BusinessException("You did not enter a valid usertype");
+                throw new BusinessException(UsersMessages.ValidUserType);
             }
         }
 
@@ -97,7 +132,21 @@ namespace Application.Features.Users.Rules
             }
             else
             {
-                throw new BusinessException("You did not enter a valid usertype");
+                throw new BusinessException(UsersMessages.ValidUserType);
+            }
+        }
+
+        public async Task UserEmailCanBeUpdated(int userId, string newEmail)
+        {
+            User? user = await _userRepisotory.GetAsync(u => u.Id == userId);
+            if (user.Email == newEmail)
+            {
+                return;
+            }
+            User? existingUser = await _userRepisotory.GetAsync(u => u.Email == newEmail && u.Id != userId);
+            if (existingUser != null)
+            {
+                throw new BusinessException(UsersMessages.EmailAlreadyUsed);
             }
         }
     }
