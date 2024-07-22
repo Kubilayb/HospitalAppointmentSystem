@@ -3,6 +3,8 @@ using SmtpClient = System.Net.Mail.SmtpClient;
 using System.Net;
 using Microsoft.Extensions.Configuration;
 using System.Text;
+using Core.Entities;
+using Core.Models;
 
 namespace Core.Mailing
 {
@@ -42,6 +44,27 @@ namespace Core.Mailing
 			string mail = $"Sayın {userName} {userSurname} merhaba, " +
 				$"{startTime} tarihinde randevunuz oluşturulmuştur.";
 			await SendMailAsync(to, "Randevu Bilgilendirme", mail);
+		}
+		public async Task BookedAppointmentReminderMailAsync(List<LastOneDayPatients> patients)
+		{
+			foreach (var item in patients)
+			{
+				string mail = $"Sayın {item.Username} {item.Surname} merhaba, " +
+				$"{item.StartTime} tarihindeki randevunuza 24 saatten az zaman kalmıştır.";
+
+				await SendMailAsync(item.To, "Randevu Hatırlatma", mail);
+			}
+		}
+
+		public async Task BookedAppointmentReminderToDoctorMailAsync(List<TodaysAppointments> doctors)
+		{
+			foreach (var item in doctors)
+			{
+				string mail = $"Sayın {item.Username} {item.Surname} merhaba, " +
+				$"{item.StartTime} tarihindeki {item.PatientName} {item.Surname} isimli hasta ile randevunuz vardır.";
+
+				await SendMailAsync(item.To, "Randevu Hatırlatma", mail);
+			}
 		}
 	}
 }

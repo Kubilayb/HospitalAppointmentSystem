@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Core.JWT;
 using Microsoft.OpenApi.Models;
+using Infrastructure.SignalR;
+using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,10 +54,22 @@ builder.Services.AddSwaggerGen(opt =>
 
 TokenOptions? tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();  // for SignalR
+    });
+});
+
 builder.Services.AddPersistenceServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddCoreServices(tokenOptions);
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddInfrastructureServices();
 
 
 builder.Services
@@ -83,6 +97,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowSpecificOrigin");
+
 app.ConfigureExceptionMiddlewareExtensions();
 
 app.UseHttpsRedirection();
@@ -92,5 +108,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHubs();
 
 app.Run();

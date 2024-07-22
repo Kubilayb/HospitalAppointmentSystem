@@ -8,6 +8,8 @@ using Core.Application.Pipelines.Logging;
 using static Application.Features.Appointments.Constants.AppointmentsOperationClaims;
 using Core.Mailing;
 using Application.Features.Appointments.Rules;
+using Application.Services.PatientService;
+using Application.Services.UserService;
 
 namespace Application.Features.Appointments.Commands.Create
 {
@@ -25,16 +27,17 @@ namespace Application.Features.Appointments.Commands.Create
 			private readonly IMapper _mapper;
 			private readonly IMailService _mailService;
             private readonly AppointmentBusinessRules _appointmentBusinessRules;
+            private readonly IPatientService _patientService;
+			public CreateAppointmentCommandHandler(IAppointmentRepository appointmentRepository, IMapper mapper, IMailService mailService, AppointmentBusinessRules appointmentBusinessRules, IPatientService patientService)
+			{
+				_appointmentRepository = appointmentRepository;
+				_mapper = mapper;
+				_mailService = mailService;
+				_appointmentBusinessRules = appointmentBusinessRules;
+				_patientService = patientService;
+			}
 
-            public CreateAppointmentCommandHandler(IAppointmentRepository appointmentRepository, IMapper mapper, IMailService mailService, AppointmentBusinessRules appointmentBusinessRules)
-            {
-                _appointmentRepository = appointmentRepository;
-                _mapper = mapper;
-                _mailService = mailService;
-                _appointmentBusinessRules = appointmentBusinessRules;
-            }
-
-            public async Task<CreateAppointmentResponse> Handle(CreateAppointmentCommand request, CancellationToken cancellationToken)
+			public async Task<CreateAppointmentResponse> Handle(CreateAppointmentCommand request, CancellationToken cancellationToken)
             {
                 await _appointmentBusinessRules.ValidateAppointmentCreation(request);
 
@@ -42,7 +45,10 @@ namespace Application.Features.Appointments.Commands.Create
                 appointment.Status = AppointmentStatus.Booked;
 
                 await _appointmentRepository.AddAsync(appointment);
-                CreateAppointmentResponse response = _mapper.Map<CreateAppointmentResponse>(appointment);
+
+				User user = await _patientService.GetUserAsync(request.PatientId);
+				await _mailService.BookedAppointmentMailAsync(user.Email, appointment.StartTime, user.FirstName, user.LastName);
+				CreateAppointmentResponse response = _mapper.Map<CreateAppointmentResponse>(appointment);
 
                 return response;
             }

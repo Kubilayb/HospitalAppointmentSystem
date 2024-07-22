@@ -20,8 +20,8 @@ namespace Application.Features.Users.Commands.Create
 
 		public bool CheckBirthDate(DateTime birthDate)
 		{
-			int fark = DateTime.Now.Year - birthDate.Year;
-			if (fark >= 18)
+			int difference = DateTime.Now.Year - birthDate.Year;
+			if (difference >= 18)
 			{
 				return true;
 			}

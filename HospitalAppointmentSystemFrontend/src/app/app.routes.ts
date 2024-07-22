@@ -36,6 +36,12 @@ import { PatientProfileComponent } from './features/patient-features/patient-pro
 import { ListDoctorsComponent } from './features/patient-features/list-doctors/components/list-doctors/list-doctors.component';
 import { ListDepartmentsComponent } from './features/patient-features/list-departments/list-departments/list-departments.component';
 import { ContactComponent } from './features/patient-features/contact/contact/contact.component';
+import { ChangePasswordComponent } from './features/auth/change-password/change-password/change-password.component';
+import { BookAppointmentComponent } from './features/appointments/components/book-appointment/book-appointment.component';
+import { DoctorProfileComponent } from './features/doctor-features/doctor-profile/components/doctor-profile/doctor-profile.component';
+import { CreateAppointment } from './features/patient-features/patient-appointment/models/create-appointment';
+import { CreateAppointmentComponent } from './features/patient-features/patient-appointment/components/create-appointment/create-appointment.component';
+import { FaqsComponent } from './features/patient-features/faqs/faqs.component';
 
 
 export const routes: Routes = [
@@ -49,12 +55,15 @@ export const routes: Routes = [
   {path:"doctors",component:ListDoctorsComponent,canActivate: [authGuard]},
   {path:"departments",component:ListDepartmentsComponent,canActivate: [authGuard]},
   {path:"contact",component:ContactComponent,canActivate: [authGuard]},
+  {path:"faqs",component:FaqsComponent,canActivate: [authGuard]},
+  {path:"book-appointment",component:CreateAppointmentComponent,canActivate: [authGuard]},
   ]},
 
   {path:"doctor",component:DoctorLayoutComponent,
     children: [
     {path:"",component:DoctorDashboardComponent,canActivate: [authGuard]},
   {path:"schedule",component:DoctorScheduleComponent,canActivate: [authGuard]},
+  {path:"profile",component:DoctorProfileComponent,canActivate: [authGuard]},
 
     ]},
 
